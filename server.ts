@@ -15,12 +15,19 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-const LEADS_FILE = path.resolve(__dirname, 'leads.json');
+const LEADS_FILE = process.env.VERCEL
+  ? path.resolve('/tmp', 'leads.json')
+  : path.resolve(__dirname, 'leads.json');
 
 function readLeadsFromFile(): any[] {
   try {
     if (fs.existsSync(LEADS_FILE)) {
       const data = fs.readFileSync(LEADS_FILE, 'utf-8');
+      return JSON.parse(data);
+    }
+    const bundledLeads = path.resolve(__dirname, 'leads.json');
+    if (fs.existsSync(bundledLeads)) {
+      const data = fs.readFileSync(bundledLeads, 'utf-8');
       return JSON.parse(data);
     }
   } catch (e) {
@@ -33,7 +40,7 @@ function writeLeadsToFile(leads: any[]) {
   try {
     fs.writeFileSync(LEADS_FILE, JSON.stringify(leads, null, 2), 'utf-8');
   } catch (e) {
-    console.error('Error writing leads file:', e);
+    console.warn('Could not write leads to local file (expected in serverless):', e);
   }
 }
 
@@ -424,6 +431,11 @@ async function setupServer() {
   });
 }
 
-setupServer().catch((err) => {
-  console.error('Failed to start server:', err);
-});
+if (!process.env.VERCEL) {
+  setupServer().catch((err) => {
+    console.error('Failed to start server:', err);
+  });
+}
+
+export { app };
+export default app;
