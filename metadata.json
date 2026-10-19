@@ -1,0 +1,6 @@
+{
+  "name": "GrowthLeap AI",
+  "description": "Practical AI automation services to help Indian MSMEs and exporters save time, reduce costs, and improve efficiency. No technical skills required.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

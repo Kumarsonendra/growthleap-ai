@@ -1,0 +1,16 @@
+[
+
+  {
+    "id": "GLA-LEAD-MUP1JD34",
+    "timestamp": "2026-10-01T04:35:17.632Z",
+    "name": "Vikram Sharma",
+    "email": "vikram.sharma@gmail.com",
+    "phone": "+91 98200 44551",
+    "company": "Sharma Brass Exports",
+    "inquiry": "Automate ICEGATE shipping bills and Tally Prime sync",
+    "source": "chatbot",
+    "auditScore": null,
+    "bottleneck": null,
+    "syncedToGoogleSheets": false
+  }
+]
