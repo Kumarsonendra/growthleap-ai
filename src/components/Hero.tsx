@@ -85,7 +85,7 @@ export const Hero: React.FC<HeroProps> = ({
             </div>
 
             {/* Micro-CTA required on Homepage directly below hero CTA button */}
-            <p style={{ textAlign: 'left', marginTop: '10px' }} className="text-xs text-slate-300">
+            <p style={{ textAlign: 'center', marginTop: '10px' }} className="text-xs text-slate-300">
               or,{' '}
               <a
                 href="#how-it-works"
