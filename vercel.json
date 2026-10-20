@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api/leads/export-csv",
+      "destination": "/api/leads?export=csv"
+    },
+    {
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }

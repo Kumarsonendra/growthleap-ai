@@ -16,9 +16,31 @@ function getStoredLeads(): any[] {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // GET: Return leads list
+  // GET: Return leads list or CSV export
   if (req.method === 'GET') {
     const leads = getStoredLeads();
+
+    // Check if CSV export was requested
+    if (req.url?.includes('export') || req.query?.export === 'csv') {
+      const headers = ['Timestamp (IST)', 'Reference ID', 'Name', 'Email (Gmail)', 'Mobile Number', 'Company', 'Enquiry', 'Source', 'Audit Score', 'Bottleneck'];
+      const rows = leads.map((l: any) => [
+        `"${new Date(l.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}"`,
+        `"${l.id}"`,
+        `"${(l.name || '').replace(/"/g, '""')}"`,
+        `"${(l.email || '').replace(/"/g, '""')}"`,
+        `"${(l.phone || '').replace(/"/g, '""')}"`,
+        `"${(l.company || '').replace(/"/g, '""')}"`,
+        `"${(l.inquiry || '').replace(/"/g, '""')}"`,
+        `"${l.source || ''}"`,
+        `"${l.auditScore || ''}"`,
+        `"${(l.bottleneck || '').replace(/"/g, '""')}"`,
+      ]);
+      const csv = [headers.join(','), ...rows.map((r: any) => r.join(','))].join('\n') + '\n';
+      res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+      res.setHeader('Content-Disposition', 'attachment; filename="growthleap_leads.csv"');
+      return res.status(200).send(csv);
+    }
+
     return res.status(200).json({
       total: leads.length,
       leads,

@@ -92,7 +92,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* 9. AI BUSINESS AUDIT TOOL */}
       <section id="audit" className="reveal-fade-in-up" data-delay="30">
-        <AuditSection onOpenBooking={onOpenBooking} />
+        <AuditSection onOpenBooking={onOpenBooking} settings={settings} />
       </section>
 
       {/* 10. HOW IT WORKS (6-STAGE PIPELINE) */}

@@ -10,6 +10,8 @@ import { AIChatbot } from './components/AIChatbot';
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
+import { ServicesPage } from './pages/ServicesPage';
+import { HowItWorksPage } from './pages/HowItWorksPage';
 import { DEFAULT_SETTINGS } from './data/siteData';
 import { PageTab, SiteSettings } from './types';
 
@@ -129,6 +131,20 @@ export default function App() {
         {activeTab === 'contact' && (
           <ContactPage
             onOpenAudit={handleOpenAudit}
+            onOpenBooking={() => setBookingModalOpen(true)}
+            settings={settings}
+          />
+        )}
+        {(activeTab as string) === 'services' && (
+          <ServicesPage
+            setActiveTab={handleNavChange}
+            onOpenBooking={() => setBookingModalOpen(true)}
+            settings={settings}
+          />
+        )}
+        {activeTab === 'how-it-works' && (
+          <HowItWorksPage
+            setActiveTab={handleNavChange}
             onOpenBooking={() => setBookingModalOpen(true)}
             settings={settings}
           />
